@@ -122,25 +122,25 @@ var options = {
   allow_empty: true,
 
   //default_filter: 'name',
-  sort_filters: true,
+//  sort_filters: true,
 
-  optgroups: {
+/*  optgroups: {
     core: {
       en: 'Core',
       fr: 'Coeur'
     }
-  },
+  },*/
 
-  plugins: {
+  /*plugins: {
     'bt-tooltip-errors': { delay: 100},
-    'sortable': null,
-    'filter-description': { mode: 'bootbox' },
+    //'sortable': null,
+    //'filter-description': { mode: 'bootbox' },
     'bt-selectpicker': null,
     'unique-filter': null,
     'bt-checkbox': { color: 'primary' },
-    'invert': null,
+  //  'invert': null,
     'not-group': null
-  },
+  },*/
 
   // standard operators in custom optgroups
   operators: [
@@ -163,7 +163,8 @@ var options = {
     {type: 'is_empty'     },
     {type: 'is_not_empty' },
     {type: 'is_null'      },
-    {type: 'is_not_null'  }
+    {type: 'is_not_null'  },
+    {type: 'is_empty_null'  }
   ],
 
   filters: [
@@ -217,7 +218,7 @@ var options = {
       2: 'warning',
       5: 'success'
     },
-    operators: ['in', 'not_in', 'equal', 'not_equal', 'is_null', 'is_not_null']
+    operators: ['is_null', 'is_not_null' , 'is_empty_null']
   },
   /*
    * select
@@ -408,7 +409,24 @@ var options = {
 };
 
 // init
+
+var defaultRule = {
+  "condition": "AND",
+  "rules": [
+    {
+      "id": "category",
+      "field": "category",
+      "type": "integer",
+      "input": "checkbox",
+      "operator": "is_empty_null",
+      "value": null
+    }
+  ],
+  "not": false
+}
+
 $('#builder').queryBuilder(options);
+$('#builder').queryBuilder('setRules' , defaultRule);
 
 $('#builder').on('afterCreateRuleInput.queryBuilder', function(e, rule) {
     if (rule.filter.plugin == 'selectize') {

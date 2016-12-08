@@ -27,7 +27,9 @@ QueryBuilder.defaults({
         is_empty:         { op: '= \'\'' },
         is_not_empty:     { op: '!= \'\'' },
         is_null:          { op: 'IS NULL' },
-        is_not_null:      { op: 'IS NOT NULL' }
+        is_not_null:      { op: 'IS NOT NULL' },
+        is_empty_null:    { op: 'IS NULL EMPTY' }
+
     },
 
     /* operators for SQL -> internal conversion */
@@ -291,9 +293,11 @@ QueryBuilder.extend({
                     }
 
                     var sqlFn = function(v) {
-                        return sql.op.replace(/\?/, v);
+                        if(sql.op === "IS NULL EMPTY")
+                            return sql.op = "IS NULL OR trim(' ' from " + rule.field + ") = ''"
+                        else
+                            return sql.op.replace(/\?/, v);
                     };
-
                     var ruleExpression = self.change('getSQLField', rule.field, rule) + ' ' + sqlFn(value);
                     parts.push(self.change('ruleToSQL', ruleExpression, rule, value, sqlFn));
                 }

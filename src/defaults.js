@@ -96,8 +96,10 @@ QueryBuilder.OPERATORS = {
     is_empty:         { type: 'is_empty',         nb_inputs: 0, multiple: false, apply_to: ['string'] },
     is_not_empty:     { type: 'is_not_empty',     nb_inputs: 0, multiple: false, apply_to: ['string'] },
     is_null:          { type: 'is_null',          nb_inputs: 0, multiple: false, apply_to: ['string', 'number', 'datetime', 'boolean'] },
-    is_not_null:      { type: 'is_not_null',      nb_inputs: 0, multiple: false, apply_to: ['string', 'number', 'datetime', 'boolean'] }
+    is_not_null:      { type: 'is_not_null',      nb_inputs: 0, multiple: false, apply_to: ['string', 'number', 'datetime', 'boolean'] },
+    is_empty_null:    { type: 'is_empty_null',    nb_inputs: 0, multiple: false, apply_to: ['string'] }
 };
+
 
 /**
  * Default configuration
@@ -162,8 +164,10 @@ QueryBuilder.DEFAULTS = {
         'is_empty',
         'is_not_empty',
         'is_null',
-        'is_not_null'
+        'is_not_null',
+        'is_empty_null'
     ],
+
 
     icons: {
         add_group:    'glyphicon glyphicon-plus-sign',
