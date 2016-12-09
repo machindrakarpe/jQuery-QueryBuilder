@@ -294,7 +294,7 @@ QueryBuilder.extend({
 
                     var sqlFn = function(v) {
                         if(sql.op === "IS NULL EMPTY")
-                            return sql.op = "IS NULL OR trim(' ' from " + rule.field + ") = ''"
+                            return "IS NULL OR trim(' ' from " + rule.field + ") = ''"
                         else
                             return sql.op.replace(/\?/, v);
                     };
